@@ -1,8 +1,0 @@
-2026-05-27 23:18:14,953 INFO [rag_indexer] HTTP Request: GET http://26.104.46.75:11434/api/tags "HTTP/1.1 200 OK"
-2026-05-27 23:21:05,134 INFO [rag_indexer] HTTP Request: GET http://26.104.46.75:11434/api/tags "HTTP/1.1 200 OK"
-2026-05-27 23:35:31,360 INFO [rag_indexer] HTTP Request: GET http://26.104.46.75:11434/api/tags "HTTP/1.1 200 OK"
-2026-05-27 23:35:45,782 INFO [rag_indexer] HTTP Request: POST http://26.104.46.75:11434/api/chat "HTTP/1.1 200 OK"
-2026-05-27 23:35:45,810 INFO [rag_indexer] Loaded text: owasp-sqli.md
-2026-05-27 23:35:45,817 INFO [rag_indexer] Loaded text: owasp-ssti.md
-2026-05-27 23:35:50,389 INFO [rag_indexer] HTTP Request: POST http://26.104.46.75:11434/api/embed "HTTP/1.1 200 OK"
-2026-05-27 23:35:51,930 INFO [rag_indexer] ChromaDB built: 62 chunks t\u1eeb 2 documents
