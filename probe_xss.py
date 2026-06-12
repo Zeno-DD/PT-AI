@@ -1,16 +1,15 @@
 # ═══════════════════════════════════════════════════════════════
-# probe_xss.py — Probe Reflected XSS (Phiên bản DVWA)
+# probe_xss.py — Probe Reflected XSS (Phiên bản DVWA Tự động)
 # ═══════════════════════════════════════════════════════════════
 
 import logging
 import httpx
 
-# Lấy cấu hình LOG_FILE, tạm bỏ JUICE_SHOP_URL để dùng link DVWA
-from config import LOG_FILE
+from config import TARGET_HOST, LOG_FILE
 from fuzzer import get_xss_payloads, XSS_MARKER
+from dvwa_auth import get_dvwa_cookies
 
-# ── Cấu hình URL mục tiêu DVWA ───────────────────────────────
-BASE = "http://192.168.0.104"
+BASE = TARGET_HOST
 
 logging.basicConfig(
     filename=LOG_FILE,
@@ -18,51 +17,24 @@ logging.basicConfig(
     format="%(asctime)s %(levelname)s [probe_xss] %(message)s"
 )
 
-# ── [QUAN TRỌNG] Cấu hình Cookie sống của DVWA ───────────────
-DVWA_COOKIES = {
-    "PHPSESSID": "5eebef159783c02bbdee94932adc8b4e", 
-    "security": "low"
-}
+DVWA_COOKIES = get_dvwa_cookies()
 
-# Các dạng encode của < — nếu response trả về dạng này
-# thì payload đã bị encode → KHÔNG phải XSS
 ENCODED_FORMS = [
-    "&lt;",      # HTML entity
-    "&#60;",     # Decimal entity
-    "\\u003c",   # Unicode escape
-    "%3C",       # URL encode (case sensitive)
-    "%3c",       # URL encode (lowercase)
+    "&lt;", "&#60;", "\\u003c", "%3C", "%3c"
 ]
 
 DEFAULT_HEADERS = {
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-                  "AppleWebKit/537.36 (KHTML, like Gecko) "
-                  "Chrome/120.0.0.0 Safari/537.36"
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36"
 }
-
 
 def _send(method: str, url: str, param: str,
           payload: str, timeout: int = 10) -> tuple[str, int]:
-    """Gửi request kèm Cookie xác thực và trả về (body, status_code)."""
+    request_data = {param: payload, "Submit": "Submit"}
     try:
         if method == "GET":
-            r = httpx.get(
-                url,
-                params={param: payload},
-                headers=DEFAULT_HEADERS,
-                cookies=DVWA_COOKIES,      # <--- ĐÃ CHÈN COOKIE
-                timeout=timeout,
-                follow_redirects=True
-            )
+            r = httpx.get(url, params=request_data, headers=DEFAULT_HEADERS, cookies=DVWA_COOKIES, timeout=timeout, follow_redirects=True)
         else:
-            r = httpx.post(
-                url,
-                data={param: payload},
-                headers=DEFAULT_HEADERS,
-                cookies=DVWA_COOKIES,      # <--- ĐÃ CHÈN COOKIE
-                timeout=timeout,
-                follow_redirects=True
-            )
+            r = httpx.post(url, data=request_data, headers=DEFAULT_HEADERS, cookies=DVWA_COOKIES, timeout=timeout, follow_redirects=True)
         return r.text, r.status_code
     except httpx.TimeoutException:
         logging.warning(f"[XSS] Timeout: {url} {param}={payload[:30]}")
@@ -71,32 +43,24 @@ def _send(method: str, url: str, param: str,
         logging.warning(f"[XSS] Error {url}: {e}")
         return "", 0
 
-
 def _is_reflected(body: str, payload: str) -> tuple[bool, str]:
-    """
-    Kiểm tra payload có được reflect trong response không.
-    """
-    # Marker không có trong response → không reflected
     if XSS_MARKER not in body:
         return False, ""
 
-    # Tìm vị trí marker trong body để lấy context
     idx     = body.find(XSS_MARKER)
     snippet = body[max(0, idx - 50): idx + len(XSS_MARKER) + 50]
 
-    # Kiểm tra < bị encode không (chỉ áp dụng nếu payload có <)
-    if "<" in payload:
-        if any(enc in snippet for enc in ENCODED_FORMS):
-            # Bị encode → server đã escape → không phải XSS thực sự
-            return False, snippet
+    # Kiểm tra encode bất kể payload có ký tự < hay không
+    if any(enc in snippet for enc in ENCODED_FORMS):
+        return False, snippet
+
+    # Chặn False Positive: Server reflect literal string dạng URL-encoded
+    if "%3C" in payload.upper() or "%25" in payload.upper():
+        return False, snippet
 
     return True, snippet
 
-
 def run_xss_probe(action: dict) -> list:
-    """
-    Probe Reflected XSS cho 1 endpoint + param.
-    """
     url    = f"{BASE}{action['url']}"
     param  = action["param"]
     method = action.get("method", "GET")
@@ -126,14 +90,10 @@ def run_xss_probe(action: dict) -> list:
             }
             results.append(result)
             print(f"[XSS Probe]   ✅ REFLECTED: {payload[:60]!r}")
-            logging.info(
-                f"XSS hit: {url} {param} payload={payload!r}"
-            )
+            logging.info(f"XSS hit: {url} {param} payload={payload!r}")
 
             if not found:
                 found = True
-                # Vẫn tiếp tục test để tìm thêm vector khác
-                # nhưng sau 3 hits thì dừng
             if len(results) >= 3:
                 break
 
