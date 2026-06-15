@@ -1,6 +1,6 @@
 # ═══════════════════════════════════════════════════════════════
 # config.py — Cấu hình trung tâm toàn pipeline
-# Đã cập nhật: Chuyển target sang DVWA chuẩn Base URL
+# Đã fix triệt để: Tách bạch TARGET_HOST và TARGET_BASE_URL
 # ═══════════════════════════════════════════════════════════════
 
 # ── AI Server (Windows 11) ───────────────────────────────────
@@ -15,13 +15,14 @@ TEMP_BYPASS   = 0.7   # Bypass loop      → sáng tạo, đa dạng
 TEMP_VERIFY   = 0.0   # Verify           → maximum deterministic
 
 # ── Target (DVWA) ────────────────────────────────────────────
-# CHỈ ĐỂ BASE URL, KHÔNG CÓ /login.php hay /index.php ở đuôi!
-TARGET_BASE_URL = "http://192.168.0.104/DVWA" 
+# BẮT BUỘC KHAI BÁO RÕ 2 BIẾN NÀY ĐỂ TRÁNH LỖI INVALID URL
+TARGET_HOST     = "http://192.168.0.106"       # Chỉ IP/Domain (Dùng để ghép path)
+TARGET_BASE_URL = "http://192.168.0.106/DVWA"  # Root web (Dùng cho login/crawler)
 
-# Alias (Giữ lại tên biến cũ để các file code cũ không bị báo lỗi ngớ ngẩn)
+# Alias cũ (giữ lại để không vỡ code cũ)
 JUICE_SHOP_URL  = TARGET_BASE_URL 
 
-# Tài khoản DVWA (để dvwa_auth.py có thể lấy tự động)
+# Tài khoản DVWA (để dvwa_auth.py lấy tự động)
 DVWA_USERNAME   = "admin"
 DVWA_PASSWORD   = "password"
 

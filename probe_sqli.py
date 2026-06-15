@@ -1,5 +1,6 @@
 # ═══════════════════════════════════════════════════════════════
 # probe_sqli.py — Probe SQL Injection (Phiên bản DVWA Tự động)
+# Đã fix lỗi: Gọi cookie trong hàm thực thi thay vì global
 # ═══════════════════════════════════════════════════════════════
 
 import logging
@@ -9,7 +10,7 @@ from config import TARGET_HOST, LOG_FILE
 from fuzzer import get_sqli_payloads
 from dvwa_auth import get_dvwa_cookies
 
-# Dùng TARGET_HOST để nối URL (VD: http://192.168.0.104 + /DVWA/vulnerabilities...)
+# Dùng TARGET_HOST để nối URL (với trick chuỗi rỗng từ config thì nó sẽ an toàn)
 BASE = TARGET_HOST
 
 logging.basicConfig(
@@ -25,12 +26,10 @@ ERROR_MARKERS = [
     "pg_query", "psql", "mssql", "microsoft sql",
 ]
 
-# Lấy Session DVWA sống ngay khi khởi tạo
-DVWA_COOKIES = get_dvwa_cookies()
 TIME_THRESHOLD = 2.5
 
 def _send(method: str, url: str, param: str,
-          payload: str, timeout: int = 10) -> tuple[str, float, int]:
+          payload: str, cookies: dict, timeout: int = 10) -> tuple[str, float, int]:
     """Gửi HTTP request với payload kèm theo Cookie xác thực DVWA và nút Submit."""
     request_data = {param: payload, "Submit": "Submit"}
     
@@ -39,7 +38,7 @@ def _send(method: str, url: str, param: str,
             r = httpx.get(
                 url,
                 params=request_data,
-                cookies=DVWA_COOKIES,
+                cookies=cookies,
                 timeout=timeout,
                 follow_redirects=True
             )
@@ -47,7 +46,7 @@ def _send(method: str, url: str, param: str,
             r = httpx.post(
                 url,
                 data=request_data,
-                cookies=DVWA_COOKIES,
+                cookies=cookies,
                 timeout=timeout,
                 follow_redirects=True
             )
@@ -72,9 +71,12 @@ def run_sqli_probe(action: dict) -> list:
     param  = action["param"]
     method = action.get("method", "GET")
 
+    # Lấy Session DVWA tại thời điểm hàm thực sự chạy
+    dvwa_cookies = get_dvwa_cookies()
+
     print(f"[SQLi Probe] {method} {action['url']} ?{param}")
 
-    _, baseline, _ = _send(method, url, param, "1")
+    _, baseline, _ = _send(method, url, param, "1", dvwa_cookies)
     logging.info(f"SQLi baseline {url} {param}: {baseline:.2f}s")
 
     payloads = get_sqli_payloads()
@@ -86,7 +88,7 @@ def run_sqli_probe(action: dict) -> list:
         if found_error_based and not is_time:
             continue
 
-        body, elapsed, status = _send(method, url, param, payload)
+        body, elapsed, status = _send(method, url, param, payload, dvwa_cookies)
         error_found, marker = _detect_error(body)
         
         if error_found and not found_error_based:

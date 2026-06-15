@@ -1,0 +1,2041 @@
+[
+  {
+    "method": "GET",
+    "url": "http://192.168.0.106/DVWA/index.php",
+    "path": "/DVWA/index.php",
+    "canonical_path": "/DVWA/index.php",
+    "response_content_type": "text/html;charset=utf-8",
+    "statuses": [
+      200
+    ],
+    "params": [],
+    "forms": [],
+    "seen_count": 1,
+    "source_tools": [
+      "crawler"
+    ],
+    "discovered_from": [
+      "http://192.168.0.106/DVWA/index.php"
+    ],
+    "examples": [
+      "http://192.168.0.106/DVWA/index.php"
+    ]
+  },
+  {
+    "method": "GET",
+    "url": "http://192.168.0.106/DVWA/",
+    "path": "/DVWA/",
+    "canonical_path": "/DVWA/",
+    "response_content_type": "text/html;charset=utf-8",
+    "statuses": [
+      200
+    ],
+    "params": [],
+    "forms": [],
+    "seen_count": 1,
+    "source_tools": [
+      "crawler"
+    ],
+    "discovered_from": [
+      "http://192.168.0.106/DVWA/"
+    ],
+    "examples": [
+      "http://192.168.0.106/DVWA/"
+    ]
+  },
+  {
+    "method": "GET",
+    "url": "http://192.168.0.106/DVWA/instructions.php?doc=copying",
+    "path": "/DVWA/instructions.php",
+    "canonical_path": "/DVWA/instructions.php",
+    "response_content_type": "text/html;charset=utf-8",
+    "statuses": [
+      200
+    ],
+    "params": [
+      {
+        "name": "doc",
+        "location": "query",
+        "type_hint": "string",
+        "sample_values": [
+          "readme",
+          "PDF",
+          "changelog"
+        ]
+      }
+    ],
+    "forms": [],
+    "seen_count": 5,
+    "source_tools": [
+      "crawler"
+    ],
+    "discovered_from": [
+      "http://192.168.0.106/DVWA/instructions.php?doc=readme",
+      "http://192.168.0.106/DVWA/instructions.php",
+      "http://192.168.0.106/DVWA/instructions.php?doc=PDF",
+      "http://192.168.0.106/DVWA/instructions.php?doc=changelog"
+    ],
+    "examples": [
+      "http://192.168.0.106/DVWA/instructions.php?doc=changelog",
+      "http://192.168.0.106/DVWA/instructions.php?doc=copying",
+      "http://192.168.0.106/DVWA/instructions.php?doc=readme"
+    ]
+  },
+  {
+    "method": "GET",
+    "url": "http://192.168.0.106/DVWA/setup.php",
+    "path": "/DVWA/setup.php",
+    "canonical_path": "/DVWA/setup.php",
+    "response_content_type": "text/html;charset=utf-8",
+    "statuses": [
+      200
+    ],
+    "params": [],
+    "forms": [
+      {
+        "method": "POST",
+        "action": "http://192.168.0.106/DVWA/setup.php",
+        "inputs": [
+          {
+            "name": "create_db",
+            "type": "submit",
+            "value": "Create / Reset Database"
+          },
+          {
+            "name": "user_token",
+            "type": "hidden",
+            "value": "eb042a85c1dbb26f89e9b7f46ee56d48"
+          }
+        ]
+      }
+    ],
+    "seen_count": 1,
+    "source_tools": [
+      "crawler"
+    ],
+    "discovered_from": [
+      "http://192.168.0.106/DVWA/setup.php"
+    ],
+    "examples": [
+      "http://192.168.0.106/DVWA/setup.php"
+    ]
+  },
+  {
+    "method": "POST",
+    "url": "http://192.168.0.106/DVWA/setup.php",
+    "path": "/DVWA/setup.php",
+    "canonical_path": "/DVWA/setup.php",
+    "response_content_type": "",
+    "statuses": [
+      0
+    ],
+    "params": [
+      {
+        "name": "create_db",
+        "location": "body",
+        "type_hint": "string",
+        "sample_values": [
+          "Create / Reset Database"
+        ]
+      },
+      {
+        "name": "user_token",
+        "location": "body",
+        "type_hint": "string",
+        "sample_values": [
+          "eb042a85c1dbb26f89e9b7f46ee56d48"
+        ]
+      }
+    ],
+    "forms": [
+      {
+        "method": "POST",
+        "action": "http://192.168.0.106/DVWA/setup.php",
+        "inputs": [
+          {
+            "name": "create_db",
+            "type": "submit",
+            "value": "Create / Reset Database"
+          },
+          {
+            "name": "user_token",
+            "type": "hidden",
+            "value": "eb042a85c1dbb26f89e9b7f46ee56d48"
+          }
+        ]
+      }
+    ],
+    "seen_count": 1,
+    "source_tools": [
+      "crawler"
+    ],
+    "discovered_from": [],
+    "examples": [
+      "http://192.168.0.106/DVWA/setup.php"
+    ]
+  },
+  {
+    "method": "GET",
+    "url": "http://192.168.0.106/DVWA/vulnerabilities/brute/",
+    "path": "/DVWA/vulnerabilities/brute/",
+    "canonical_path": "/DVWA/vulnerabilities/brute/",
+    "response_content_type": "text/html;charset=utf-8",
+    "statuses": [
+      200,
+      0
+    ],
+    "params": [
+      {
+        "name": "username",
+        "location": "body",
+        "type_hint": "empty",
+        "sample_values": [
+          ""
+        ]
+      },
+      {
+        "name": "password",
+        "location": "body",
+        "type_hint": "empty",
+        "sample_values": [
+          ""
+        ]
+      },
+      {
+        "name": "Login",
+        "location": "body",
+        "type_hint": "string",
+        "sample_values": [
+          "Login"
+        ]
+      }
+    ],
+    "forms": [
+      {
+        "method": "GET",
+        "action": "http://192.168.0.106/DVWA/vulnerabilities/brute/",
+        "inputs": [
+          {
+            "name": "username",
+            "type": "text",
+            "value": ""
+          },
+          {
+            "name": "password",
+            "type": "password",
+            "value": ""
+          },
+          {
+            "name": "Login",
+            "type": "submit",
+            "value": "Login"
+          }
+        ]
+      },
+      {
+        "method": "GET",
+        "action": "http://192.168.0.106/DVWA/vulnerabilities/brute/",
+        "inputs": [
+          {
+            "name": "username",
+            "type": "text",
+            "value": ""
+          },
+          {
+            "name": "password",
+            "type": "password",
+            "value": ""
+          },
+          {
+            "name": "Login",
+            "type": "submit",
+            "value": "Login"
+          }
+        ]
+      }
+    ],
+    "seen_count": 2,
+    "source_tools": [
+      "crawler"
+    ],
+    "discovered_from": [
+      "http://192.168.0.106/DVWA/vulnerabilities/brute/"
+    ],
+    "examples": [
+      "http://192.168.0.106/DVWA/vulnerabilities/brute/"
+    ]
+  },
+  {
+    "method": "GET",
+    "url": "http://192.168.0.106/DVWA/vulnerabilities/exec/",
+    "path": "/DVWA/vulnerabilities/exec/",
+    "canonical_path": "/DVWA/vulnerabilities/exec/",
+    "response_content_type": "text/html;charset=utf-8",
+    "statuses": [
+      200
+    ],
+    "params": [],
+    "forms": [
+      {
+        "method": "POST",
+        "action": "http://192.168.0.106/DVWA/vulnerabilities/exec/",
+        "inputs": [
+          {
+            "name": "ip",
+            "type": "text",
+            "value": ""
+          },
+          {
+            "name": "Submit",
+            "type": "submit",
+            "value": "Submit"
+          }
+        ]
+      }
+    ],
+    "seen_count": 1,
+    "source_tools": [
+      "crawler"
+    ],
+    "discovered_from": [
+      "http://192.168.0.106/DVWA/vulnerabilities/exec/"
+    ],
+    "examples": [
+      "http://192.168.0.106/DVWA/vulnerabilities/exec/"
+    ]
+  },
+  {
+    "method": "POST",
+    "url": "http://192.168.0.106/DVWA/vulnerabilities/exec/",
+    "path": "/DVWA/vulnerabilities/exec/",
+    "canonical_path": "/DVWA/vulnerabilities/exec/",
+    "response_content_type": "",
+    "statuses": [
+      0
+    ],
+    "params": [
+      {
+        "name": "ip",
+        "location": "body",
+        "type_hint": "empty",
+        "sample_values": [
+          ""
+        ]
+      },
+      {
+        "name": "Submit",
+        "location": "body",
+        "type_hint": "string",
+        "sample_values": [
+          "Submit"
+        ]
+      }
+    ],
+    "forms": [
+      {
+        "method": "POST",
+        "action": "http://192.168.0.106/DVWA/vulnerabilities/exec/",
+        "inputs": [
+          {
+            "name": "ip",
+            "type": "text",
+            "value": ""
+          },
+          {
+            "name": "Submit",
+            "type": "submit",
+            "value": "Submit"
+          }
+        ]
+      }
+    ],
+    "seen_count": 1,
+    "source_tools": [
+      "crawler"
+    ],
+    "discovered_from": [],
+    "examples": [
+      "http://192.168.0.106/DVWA/vulnerabilities/exec/"
+    ]
+  },
+  {
+    "method": "GET",
+    "url": "http://192.168.0.106/DVWA/vulnerabilities/csrf/",
+    "path": "/DVWA/vulnerabilities/csrf/",
+    "canonical_path": "/DVWA/vulnerabilities/csrf/",
+    "response_content_type": "text/html;charset=utf-8",
+    "statuses": [
+      200,
+      0
+    ],
+    "params": [
+      {
+        "name": "password_new",
+        "location": "body",
+        "type_hint": "empty",
+        "sample_values": [
+          ""
+        ]
+      },
+      {
+        "name": "password_conf",
+        "location": "body",
+        "type_hint": "empty",
+        "sample_values": [
+          ""
+        ]
+      },
+      {
+        "name": "Change",
+        "location": "body",
+        "type_hint": "string",
+        "sample_values": [
+          "Change"
+        ]
+      }
+    ],
+    "forms": [
+      {
+        "method": "GET",
+        "action": "http://192.168.0.106/DVWA/vulnerabilities/csrf/",
+        "inputs": [
+          {
+            "name": "password_new",
+            "type": "password",
+            "value": ""
+          },
+          {
+            "name": "password_conf",
+            "type": "password",
+            "value": ""
+          },
+          {
+            "name": "Change",
+            "type": "submit",
+            "value": "Change"
+          }
+        ]
+      },
+      {
+        "method": "GET",
+        "action": "http://192.168.0.106/DVWA/vulnerabilities/csrf/",
+        "inputs": [
+          {
+            "name": "password_new",
+            "type": "password",
+            "value": ""
+          },
+          {
+            "name": "password_conf",
+            "type": "password",
+            "value": ""
+          },
+          {
+            "name": "Change",
+            "type": "submit",
+            "value": "Change"
+          }
+        ]
+      }
+    ],
+    "seen_count": 2,
+    "source_tools": [
+      "crawler"
+    ],
+    "discovered_from": [
+      "http://192.168.0.106/DVWA/vulnerabilities/csrf/"
+    ],
+    "examples": [
+      "http://192.168.0.106/DVWA/vulnerabilities/csrf/"
+    ]
+  },
+  {
+    "method": "GET",
+    "url": "http://192.168.0.106/DVWA/vulnerabilities/fi/?page=file3.php",
+    "path": "/DVWA/vulnerabilities/fi/",
+    "canonical_path": "/DVWA/vulnerabilities/fi/",
+    "response_content_type": "text/html;charset=utf-8",
+    "statuses": [
+      200
+    ],
+    "params": [
+      {
+        "name": "page",
+        "location": "query",
+        "type_hint": "string",
+        "sample_values": [
+          "include.php",
+          "file1.php",
+          "file2.php"
+        ]
+      }
+    ],
+    "forms": [],
+    "seen_count": 4,
+    "source_tools": [
+      "crawler"
+    ],
+    "discovered_from": [
+      "http://192.168.0.106/DVWA/vulnerabilities/fi/?page=include.php"
+    ],
+    "examples": [
+      "http://192.168.0.106/DVWA/vulnerabilities/fi/?page=include.php",
+      "http://192.168.0.106/DVWA/vulnerabilities/fi/?page=file3.php",
+      "http://192.168.0.106/DVWA/vulnerabilities/fi/?page=file2.php"
+    ]
+  },
+  {
+    "method": "GET",
+    "url": "http://192.168.0.106/DVWA/vulnerabilities/upload/",
+    "path": "/DVWA/vulnerabilities/upload/",
+    "canonical_path": "/DVWA/vulnerabilities/upload/",
+    "response_content_type": "text/html;charset=utf-8",
+    "statuses": [
+      200
+    ],
+    "params": [],
+    "forms": [
+      {
+        "method": "POST",
+        "action": "http://192.168.0.106/DVWA/vulnerabilities/upload/",
+        "inputs": [
+          {
+            "name": "MAX_FILE_SIZE",
+            "type": "hidden",
+            "value": "100000"
+          },
+          {
+            "name": "uploaded",
+            "type": "file",
+            "value": ""
+          },
+          {
+            "name": "Upload",
+            "type": "submit",
+            "value": "Upload"
+          }
+        ]
+      }
+    ],
+    "seen_count": 1,
+    "source_tools": [
+      "crawler"
+    ],
+    "discovered_from": [
+      "http://192.168.0.106/DVWA/vulnerabilities/upload/"
+    ],
+    "examples": [
+      "http://192.168.0.106/DVWA/vulnerabilities/upload/"
+    ]
+  },
+  {
+    "method": "POST",
+    "url": "http://192.168.0.106/DVWA/vulnerabilities/upload/",
+    "path": "/DVWA/vulnerabilities/upload/",
+    "canonical_path": "/DVWA/vulnerabilities/upload/",
+    "response_content_type": "",
+    "statuses": [
+      0
+    ],
+    "params": [
+      {
+        "name": "MAX_FILE_SIZE",
+        "location": "body",
+        "type_hint": "int",
+        "sample_values": [
+          "100000"
+        ]
+      },
+      {
+        "name": "uploaded",
+        "location": "body",
+        "type_hint": "empty",
+        "sample_values": [
+          ""
+        ]
+      },
+      {
+        "name": "Upload",
+        "location": "body",
+        "type_hint": "string",
+        "sample_values": [
+          "Upload"
+        ]
+      }
+    ],
+    "forms": [
+      {
+        "method": "POST",
+        "action": "http://192.168.0.106/DVWA/vulnerabilities/upload/",
+        "inputs": [
+          {
+            "name": "MAX_FILE_SIZE",
+            "type": "hidden",
+            "value": "100000"
+          },
+          {
+            "name": "uploaded",
+            "type": "file",
+            "value": ""
+          },
+          {
+            "name": "Upload",
+            "type": "submit",
+            "value": "Upload"
+          }
+        ]
+      }
+    ],
+    "seen_count": 1,
+    "source_tools": [
+      "crawler"
+    ],
+    "discovered_from": [],
+    "examples": [
+      "http://192.168.0.106/DVWA/vulnerabilities/upload/"
+    ]
+  },
+  {
+    "method": "GET",
+    "url": "http://192.168.0.106/DVWA/vulnerabilities/captcha/",
+    "path": "/DVWA/vulnerabilities/captcha/",
+    "canonical_path": "/DVWA/vulnerabilities/captcha/",
+    "response_content_type": "text/html;charset=utf-8",
+    "statuses": [
+      200
+    ],
+    "params": [],
+    "forms": [
+      {
+        "method": "POST",
+        "action": "http://192.168.0.106/DVWA/vulnerabilities/captcha/",
+        "inputs": [
+          {
+            "name": "step",
+            "type": "hidden",
+            "value": "1"
+          },
+          {
+            "name": "password_new",
+            "type": "password",
+            "value": ""
+          },
+          {
+            "name": "password_conf",
+            "type": "password",
+            "value": ""
+          },
+          {
+            "name": "Change",
+            "type": "submit",
+            "value": "Change"
+          }
+        ]
+      }
+    ],
+    "seen_count": 1,
+    "source_tools": [
+      "crawler"
+    ],
+    "discovered_from": [
+      "http://192.168.0.106/DVWA/vulnerabilities/captcha/"
+    ],
+    "examples": [
+      "http://192.168.0.106/DVWA/vulnerabilities/captcha/"
+    ]
+  },
+  {
+    "method": "POST",
+    "url": "http://192.168.0.106/DVWA/vulnerabilities/captcha/",
+    "path": "/DVWA/vulnerabilities/captcha/",
+    "canonical_path": "/DVWA/vulnerabilities/captcha/",
+    "response_content_type": "",
+    "statuses": [
+      0
+    ],
+    "params": [
+      {
+        "name": "step",
+        "location": "body",
+        "type_hint": "int",
+        "sample_values": [
+          "1"
+        ]
+      },
+      {
+        "name": "password_new",
+        "location": "body",
+        "type_hint": "empty",
+        "sample_values": [
+          ""
+        ]
+      },
+      {
+        "name": "password_conf",
+        "location": "body",
+        "type_hint": "empty",
+        "sample_values": [
+          ""
+        ]
+      },
+      {
+        "name": "Change",
+        "location": "body",
+        "type_hint": "string",
+        "sample_values": [
+          "Change"
+        ]
+      }
+    ],
+    "forms": [
+      {
+        "method": "POST",
+        "action": "http://192.168.0.106/DVWA/vulnerabilities/captcha/",
+        "inputs": [
+          {
+            "name": "step",
+            "type": "hidden",
+            "value": "1"
+          },
+          {
+            "name": "password_new",
+            "type": "password",
+            "value": ""
+          },
+          {
+            "name": "password_conf",
+            "type": "password",
+            "value": ""
+          },
+          {
+            "name": "Change",
+            "type": "submit",
+            "value": "Change"
+          }
+        ]
+      }
+    ],
+    "seen_count": 1,
+    "source_tools": [
+      "crawler"
+    ],
+    "discovered_from": [],
+    "examples": [
+      "http://192.168.0.106/DVWA/vulnerabilities/captcha/"
+    ]
+  },
+  {
+    "method": "GET",
+    "url": "http://192.168.0.106/DVWA/vulnerabilities/sqli/",
+    "path": "/DVWA/vulnerabilities/sqli/",
+    "canonical_path": "/DVWA/vulnerabilities/sqli/",
+    "response_content_type": "text/html;charset=utf-8",
+    "statuses": [
+      200,
+      0
+    ],
+    "params": [
+      {
+        "name": "id",
+        "location": "body",
+        "type_hint": "empty",
+        "sample_values": [
+          ""
+        ]
+      },
+      {
+        "name": "Submit",
+        "location": "body",
+        "type_hint": "string",
+        "sample_values": [
+          "Submit"
+        ]
+      }
+    ],
+    "forms": [
+      {
+        "method": "GET",
+        "action": "http://192.168.0.106/DVWA/vulnerabilities/sqli/",
+        "inputs": [
+          {
+            "name": "id",
+            "type": "text",
+            "value": ""
+          },
+          {
+            "name": "Submit",
+            "type": "submit",
+            "value": "Submit"
+          }
+        ]
+      },
+      {
+        "method": "GET",
+        "action": "http://192.168.0.106/DVWA/vulnerabilities/sqli/",
+        "inputs": [
+          {
+            "name": "id",
+            "type": "text",
+            "value": ""
+          },
+          {
+            "name": "Submit",
+            "type": "submit",
+            "value": "Submit"
+          }
+        ]
+      }
+    ],
+    "seen_count": 2,
+    "source_tools": [
+      "crawler"
+    ],
+    "discovered_from": [
+      "http://192.168.0.106/DVWA/vulnerabilities/sqli/"
+    ],
+    "examples": [
+      "http://192.168.0.106/DVWA/vulnerabilities/sqli/"
+    ]
+  },
+  {
+    "method": "GET",
+    "url": "http://192.168.0.106/DVWA/vulnerabilities/sqli_blind/",
+    "path": "/DVWA/vulnerabilities/sqli_blind/",
+    "canonical_path": "/DVWA/vulnerabilities/sqli_blind/",
+    "response_content_type": "text/html;charset=utf-8",
+    "statuses": [
+      200,
+      0
+    ],
+    "params": [
+      {
+        "name": "id",
+        "location": "body",
+        "type_hint": "empty",
+        "sample_values": [
+          ""
+        ]
+      },
+      {
+        "name": "Submit",
+        "location": "body",
+        "type_hint": "string",
+        "sample_values": [
+          "Submit"
+        ]
+      }
+    ],
+    "forms": [
+      {
+        "method": "GET",
+        "action": "http://192.168.0.106/DVWA/vulnerabilities/sqli_blind/",
+        "inputs": [
+          {
+            "name": "id",
+            "type": "text",
+            "value": ""
+          },
+          {
+            "name": "Submit",
+            "type": "submit",
+            "value": "Submit"
+          }
+        ]
+      },
+      {
+        "method": "GET",
+        "action": "http://192.168.0.106/DVWA/vulnerabilities/sqli_blind/",
+        "inputs": [
+          {
+            "name": "id",
+            "type": "text",
+            "value": ""
+          },
+          {
+            "name": "Submit",
+            "type": "submit",
+            "value": "Submit"
+          }
+        ]
+      }
+    ],
+    "seen_count": 2,
+    "source_tools": [
+      "crawler"
+    ],
+    "discovered_from": [
+      "http://192.168.0.106/DVWA/vulnerabilities/sqli_blind/"
+    ],
+    "examples": [
+      "http://192.168.0.106/DVWA/vulnerabilities/sqli_blind/"
+    ]
+  },
+  {
+    "method": "GET",
+    "url": "http://192.168.0.106/DVWA/vulnerabilities/weak_id/",
+    "path": "/DVWA/vulnerabilities/weak_id/",
+    "canonical_path": "/DVWA/vulnerabilities/weak_id/",
+    "response_content_type": "text/html;charset=utf-8",
+    "statuses": [
+      200
+    ],
+    "params": [],
+    "forms": [],
+    "seen_count": 1,
+    "source_tools": [
+      "crawler"
+    ],
+    "discovered_from": [
+      "http://192.168.0.106/DVWA/vulnerabilities/weak_id/"
+    ],
+    "examples": [
+      "http://192.168.0.106/DVWA/vulnerabilities/weak_id/"
+    ]
+  },
+  {
+    "method": "GET",
+    "url": "http://192.168.0.106/DVWA/vulnerabilities/xss_d/",
+    "path": "/DVWA/vulnerabilities/xss_d/",
+    "canonical_path": "/DVWA/vulnerabilities/xss_d/",
+    "response_content_type": "text/html;charset=utf-8",
+    "statuses": [
+      200,
+      0
+    ],
+    "params": [
+      {
+        "name": "default",
+        "location": "body",
+        "type_hint": "empty",
+        "sample_values": [
+          ""
+        ]
+      }
+    ],
+    "forms": [
+      {
+        "method": "GET",
+        "action": "http://192.168.0.106/DVWA/vulnerabilities/xss_d/",
+        "inputs": [
+          {
+            "name": "default",
+            "type": "select",
+            "value": ""
+          }
+        ]
+      },
+      {
+        "method": "GET",
+        "action": "http://192.168.0.106/DVWA/vulnerabilities/xss_d/",
+        "inputs": [
+          {
+            "name": "default",
+            "type": "select",
+            "value": ""
+          }
+        ]
+      }
+    ],
+    "seen_count": 2,
+    "source_tools": [
+      "crawler"
+    ],
+    "discovered_from": [
+      "http://192.168.0.106/DVWA/vulnerabilities/xss_d/"
+    ],
+    "examples": [
+      "http://192.168.0.106/DVWA/vulnerabilities/xss_d/"
+    ]
+  },
+  {
+    "method": "GET",
+    "url": "http://192.168.0.106/DVWA/vulnerabilities/xss_r/",
+    "path": "/DVWA/vulnerabilities/xss_r/",
+    "canonical_path": "/DVWA/vulnerabilities/xss_r/",
+    "response_content_type": "text/html;charset=utf-8",
+    "statuses": [
+      200,
+      0
+    ],
+    "params": [
+      {
+        "name": "name",
+        "location": "body",
+        "type_hint": "empty",
+        "sample_values": [
+          ""
+        ]
+      }
+    ],
+    "forms": [
+      {
+        "method": "GET",
+        "action": "http://192.168.0.106/DVWA/vulnerabilities/xss_r/",
+        "inputs": [
+          {
+            "name": "name",
+            "type": "text",
+            "value": ""
+          }
+        ]
+      },
+      {
+        "method": "GET",
+        "action": "http://192.168.0.106/DVWA/vulnerabilities/xss_r/",
+        "inputs": [
+          {
+            "name": "name",
+            "type": "text",
+            "value": ""
+          }
+        ]
+      }
+    ],
+    "seen_count": 2,
+    "source_tools": [
+      "crawler"
+    ],
+    "discovered_from": [
+      "http://192.168.0.106/DVWA/vulnerabilities/xss_r/"
+    ],
+    "examples": [
+      "http://192.168.0.106/DVWA/vulnerabilities/xss_r/"
+    ]
+  },
+  {
+    "method": "GET",
+    "url": "http://192.168.0.106/DVWA/vulnerabilities/xss_s/",
+    "path": "/DVWA/vulnerabilities/xss_s/",
+    "canonical_path": "/DVWA/vulnerabilities/xss_s/",
+    "response_content_type": "text/html;charset=utf-8",
+    "statuses": [
+      200
+    ],
+    "params": [],
+    "forms": [
+      {
+        "method": "POST",
+        "action": "http://192.168.0.106/DVWA/vulnerabilities/xss_s/",
+        "inputs": [
+          {
+            "name": "txtName",
+            "type": "text",
+            "value": ""
+          },
+          {
+            "name": "mtxMessage",
+            "type": "textarea",
+            "value": ""
+          },
+          {
+            "name": "btnSign",
+            "type": "submit",
+            "value": "Sign Guestbook"
+          },
+          {
+            "name": "btnClear",
+            "type": "submit",
+            "value": "Clear Guestbook"
+          }
+        ]
+      }
+    ],
+    "seen_count": 1,
+    "source_tools": [
+      "crawler"
+    ],
+    "discovered_from": [
+      "http://192.168.0.106/DVWA/vulnerabilities/xss_s/"
+    ],
+    "examples": [
+      "http://192.168.0.106/DVWA/vulnerabilities/xss_s/"
+    ]
+  },
+  {
+    "method": "POST",
+    "url": "http://192.168.0.106/DVWA/vulnerabilities/xss_s/",
+    "path": "/DVWA/vulnerabilities/xss_s/",
+    "canonical_path": "/DVWA/vulnerabilities/xss_s/",
+    "response_content_type": "",
+    "statuses": [
+      0
+    ],
+    "params": [
+      {
+        "name": "txtName",
+        "location": "body",
+        "type_hint": "empty",
+        "sample_values": [
+          ""
+        ]
+      },
+      {
+        "name": "mtxMessage",
+        "location": "body",
+        "type_hint": "empty",
+        "sample_values": [
+          ""
+        ]
+      },
+      {
+        "name": "btnSign",
+        "location": "body",
+        "type_hint": "string",
+        "sample_values": [
+          "Sign Guestbook"
+        ]
+      },
+      {
+        "name": "btnClear",
+        "location": "body",
+        "type_hint": "string",
+        "sample_values": [
+          "Clear Guestbook"
+        ]
+      }
+    ],
+    "forms": [
+      {
+        "method": "POST",
+        "action": "http://192.168.0.106/DVWA/vulnerabilities/xss_s/",
+        "inputs": [
+          {
+            "name": "txtName",
+            "type": "text",
+            "value": ""
+          },
+          {
+            "name": "mtxMessage",
+            "type": "textarea",
+            "value": ""
+          },
+          {
+            "name": "btnSign",
+            "type": "submit",
+            "value": "Sign Guestbook"
+          },
+          {
+            "name": "btnClear",
+            "type": "submit",
+            "value": "Clear Guestbook"
+          }
+        ]
+      }
+    ],
+    "seen_count": 1,
+    "source_tools": [
+      "crawler"
+    ],
+    "discovered_from": [],
+    "examples": [
+      "http://192.168.0.106/DVWA/vulnerabilities/xss_s/"
+    ]
+  },
+  {
+    "method": "GET",
+    "url": "http://192.168.0.106/DVWA/vulnerabilities/csp/",
+    "path": "/DVWA/vulnerabilities/csp/",
+    "canonical_path": "/DVWA/vulnerabilities/csp/",
+    "response_content_type": "text/html;charset=utf-8",
+    "statuses": [
+      200
+    ],
+    "params": [],
+    "forms": [
+      {
+        "method": "POST",
+        "action": "http://192.168.0.106/DVWA/vulnerabilities/csp/",
+        "inputs": [
+          {
+            "name": "include",
+            "type": "text",
+            "value": ""
+          }
+        ]
+      }
+    ],
+    "seen_count": 1,
+    "source_tools": [
+      "crawler"
+    ],
+    "discovered_from": [
+      "http://192.168.0.106/DVWA/vulnerabilities/csp/"
+    ],
+    "examples": [
+      "http://192.168.0.106/DVWA/vulnerabilities/csp/"
+    ]
+  },
+  {
+    "method": "POST",
+    "url": "http://192.168.0.106/DVWA/vulnerabilities/csp/",
+    "path": "/DVWA/vulnerabilities/csp/",
+    "canonical_path": "/DVWA/vulnerabilities/csp/",
+    "response_content_type": "",
+    "statuses": [
+      0
+    ],
+    "params": [
+      {
+        "name": "include",
+        "location": "body",
+        "type_hint": "empty",
+        "sample_values": [
+          ""
+        ]
+      }
+    ],
+    "forms": [
+      {
+        "method": "POST",
+        "action": "http://192.168.0.106/DVWA/vulnerabilities/csp/",
+        "inputs": [
+          {
+            "name": "include",
+            "type": "text",
+            "value": ""
+          }
+        ]
+      }
+    ],
+    "seen_count": 1,
+    "source_tools": [
+      "crawler"
+    ],
+    "discovered_from": [],
+    "examples": [
+      "http://192.168.0.106/DVWA/vulnerabilities/csp/"
+    ]
+  },
+  {
+    "method": "GET",
+    "url": "http://192.168.0.106/DVWA/vulnerabilities/javascript/",
+    "path": "/DVWA/vulnerabilities/javascript/",
+    "canonical_path": "/DVWA/vulnerabilities/javascript/",
+    "response_content_type": "text/html;charset=utf-8",
+    "statuses": [
+      200
+    ],
+    "params": [],
+    "forms": [
+      {
+        "method": "POST",
+        "action": "http://192.168.0.106/DVWA/vulnerabilities/javascript/",
+        "inputs": [
+          {
+            "name": "token",
+            "type": "hidden",
+            "value": ""
+          },
+          {
+            "name": "phrase",
+            "type": "text",
+            "value": "ChangeMe"
+          },
+          {
+            "name": "send",
+            "type": "submit",
+            "value": "Submit"
+          }
+        ]
+      }
+    ],
+    "seen_count": 1,
+    "source_tools": [
+      "crawler"
+    ],
+    "discovered_from": [
+      "http://192.168.0.106/DVWA/vulnerabilities/javascript/"
+    ],
+    "examples": [
+      "http://192.168.0.106/DVWA/vulnerabilities/javascript/"
+    ]
+  },
+  {
+    "method": "POST",
+    "url": "http://192.168.0.106/DVWA/vulnerabilities/javascript/",
+    "path": "/DVWA/vulnerabilities/javascript/",
+    "canonical_path": "/DVWA/vulnerabilities/javascript/",
+    "response_content_type": "",
+    "statuses": [
+      0
+    ],
+    "params": [
+      {
+        "name": "token",
+        "location": "body",
+        "type_hint": "empty",
+        "sample_values": [
+          ""
+        ]
+      },
+      {
+        "name": "phrase",
+        "location": "body",
+        "type_hint": "string",
+        "sample_values": [
+          "ChangeMe"
+        ]
+      },
+      {
+        "name": "send",
+        "location": "body",
+        "type_hint": "string",
+        "sample_values": [
+          "Submit"
+        ]
+      }
+    ],
+    "forms": [
+      {
+        "method": "POST",
+        "action": "http://192.168.0.106/DVWA/vulnerabilities/javascript/",
+        "inputs": [
+          {
+            "name": "token",
+            "type": "hidden",
+            "value": ""
+          },
+          {
+            "name": "phrase",
+            "type": "text",
+            "value": "ChangeMe"
+          },
+          {
+            "name": "send",
+            "type": "submit",
+            "value": "Submit"
+          }
+        ]
+      }
+    ],
+    "seen_count": 1,
+    "source_tools": [
+      "crawler"
+    ],
+    "discovered_from": [],
+    "examples": [
+      "http://192.168.0.106/DVWA/vulnerabilities/javascript/"
+    ]
+  },
+  {
+    "method": "GET",
+    "url": "http://192.168.0.106/DVWA/vulnerabilities/authbypass/",
+    "path": "/DVWA/vulnerabilities/authbypass/",
+    "canonical_path": "/DVWA/vulnerabilities/authbypass/",
+    "response_content_type": "text/html;charset=utf-8",
+    "statuses": [
+      200
+    ],
+    "params": [],
+    "forms": [],
+    "seen_count": 1,
+    "source_tools": [
+      "crawler"
+    ],
+    "discovered_from": [
+      "http://192.168.0.106/DVWA/vulnerabilities/authbypass/"
+    ],
+    "examples": [
+      "http://192.168.0.106/DVWA/vulnerabilities/authbypass/"
+    ]
+  },
+  {
+    "method": "GET",
+    "url": "http://192.168.0.106/DVWA/vulnerabilities/open_redirect/",
+    "path": "/DVWA/vulnerabilities/open_redirect/",
+    "canonical_path": "/DVWA/vulnerabilities/open_redirect/",
+    "response_content_type": "text/html;charset=utf-8",
+    "statuses": [
+      200
+    ],
+    "params": [],
+    "forms": [],
+    "seen_count": 1,
+    "source_tools": [
+      "crawler"
+    ],
+    "discovered_from": [
+      "http://192.168.0.106/DVWA/vulnerabilities/open_redirect/"
+    ],
+    "examples": [
+      "http://192.168.0.106/DVWA/vulnerabilities/open_redirect/"
+    ]
+  },
+  {
+    "method": "GET",
+    "url": "http://192.168.0.106/DVWA/vulnerabilities/cryptography/",
+    "path": "/DVWA/vulnerabilities/cryptography/",
+    "canonical_path": "/DVWA/vulnerabilities/cryptography/",
+    "response_content_type": "text/html;charset=utf-8",
+    "statuses": [
+      200
+    ],
+    "params": [],
+    "forms": [
+      {
+        "method": "POST",
+        "action": "http://192.168.0.106/DVWA/vulnerabilities/cryptography/index.php",
+        "inputs": [
+          {
+            "name": "message",
+            "type": "textarea",
+            "value": ""
+          },
+          {
+            "name": "direction",
+            "type": "radio",
+            "value": "encode"
+          },
+          {
+            "name": "direction",
+            "type": "radio",
+            "value": "decode"
+          }
+        ]
+      },
+      {
+        "method": "POST",
+        "action": "http://192.168.0.106/DVWA/vulnerabilities/cryptography/index.php",
+        "inputs": [
+          {
+            "name": "password",
+            "type": "password",
+            "value": ""
+          }
+        ]
+      }
+    ],
+    "seen_count": 1,
+    "source_tools": [
+      "crawler"
+    ],
+    "discovered_from": [
+      "http://192.168.0.106/DVWA/vulnerabilities/cryptography/"
+    ],
+    "examples": [
+      "http://192.168.0.106/DVWA/vulnerabilities/cryptography/"
+    ]
+  },
+  {
+    "method": "POST",
+    "url": "http://192.168.0.106/DVWA/vulnerabilities/cryptography/index.php",
+    "path": "/DVWA/vulnerabilities/cryptography/index.php",
+    "canonical_path": "/DVWA/vulnerabilities/cryptography/index.php",
+    "response_content_type": "",
+    "statuses": [
+      0
+    ],
+    "params": [
+      {
+        "name": "message",
+        "location": "body",
+        "type_hint": "empty",
+        "sample_values": [
+          ""
+        ]
+      },
+      {
+        "name": "direction",
+        "location": "body",
+        "type_hint": "string",
+        "sample_values": [
+          "encode"
+        ]
+      },
+      {
+        "name": "password",
+        "location": "body",
+        "type_hint": "empty",
+        "sample_values": [
+          ""
+        ]
+      }
+    ],
+    "forms": [
+      {
+        "method": "POST",
+        "action": "http://192.168.0.106/DVWA/vulnerabilities/cryptography/index.php",
+        "inputs": [
+          {
+            "name": "message",
+            "type": "textarea",
+            "value": ""
+          },
+          {
+            "name": "direction",
+            "type": "radio",
+            "value": "encode"
+          },
+          {
+            "name": "direction",
+            "type": "radio",
+            "value": "decode"
+          }
+        ]
+      },
+      {
+        "method": "POST",
+        "action": "http://192.168.0.106/DVWA/vulnerabilities/cryptography/index.php",
+        "inputs": [
+          {
+            "name": "password",
+            "type": "password",
+            "value": ""
+          }
+        ]
+      }
+    ],
+    "seen_count": 2,
+    "source_tools": [
+      "crawler"
+    ],
+    "discovered_from": [],
+    "examples": [
+      "http://192.168.0.106/DVWA/vulnerabilities/cryptography/index.php"
+    ]
+  },
+  {
+    "method": "GET",
+    "url": "http://192.168.0.106/DVWA/vulnerabilities/api/",
+    "path": "/DVWA/vulnerabilities/api/",
+    "canonical_path": "/DVWA/vulnerabilities/api/",
+    "response_content_type": "text/html;charset=utf-8",
+    "statuses": [
+      200
+    ],
+    "params": [],
+    "forms": [],
+    "seen_count": 1,
+    "source_tools": [
+      "crawler"
+    ],
+    "discovered_from": [
+      "http://192.168.0.106/DVWA/vulnerabilities/api/"
+    ],
+    "examples": [
+      "http://192.168.0.106/DVWA/vulnerabilities/api/"
+    ]
+  },
+  {
+    "method": "GET",
+    "url": "http://192.168.0.106/DVWA/security.php",
+    "path": "/DVWA/security.php",
+    "canonical_path": "/DVWA/security.php",
+    "response_content_type": "text/html;charset=utf-8",
+    "statuses": [
+      200
+    ],
+    "params": [],
+    "forms": [
+      {
+        "method": "POST",
+        "action": "http://192.168.0.106/DVWA/security.php",
+        "inputs": [
+          {
+            "name": "security",
+            "type": "select",
+            "value": ""
+          },
+          {
+            "name": "seclev_submit",
+            "type": "submit",
+            "value": "Submit"
+          },
+          {
+            "name": "user_token",
+            "type": "hidden",
+            "value": "1fb032cacde8e213c95eb15899a8f378"
+          }
+        ]
+      }
+    ],
+    "seen_count": 1,
+    "source_tools": [
+      "crawler"
+    ],
+    "discovered_from": [
+      "http://192.168.0.106/DVWA/security.php"
+    ],
+    "examples": [
+      "http://192.168.0.106/DVWA/security.php"
+    ]
+  },
+  {
+    "method": "POST",
+    "url": "http://192.168.0.106/DVWA/security.php",
+    "path": "/DVWA/security.php",
+    "canonical_path": "/DVWA/security.php",
+    "response_content_type": "",
+    "statuses": [
+      0
+    ],
+    "params": [
+      {
+        "name": "security",
+        "location": "body",
+        "type_hint": "empty",
+        "sample_values": [
+          ""
+        ]
+      },
+      {
+        "name": "seclev_submit",
+        "location": "body",
+        "type_hint": "string",
+        "sample_values": [
+          "Submit"
+        ]
+      },
+      {
+        "name": "user_token",
+        "location": "body",
+        "type_hint": "string",
+        "sample_values": [
+          "1fb032cacde8e213c95eb15899a8f378"
+        ]
+      }
+    ],
+    "forms": [
+      {
+        "method": "POST",
+        "action": "http://192.168.0.106/DVWA/security.php",
+        "inputs": [
+          {
+            "name": "security",
+            "type": "select",
+            "value": ""
+          },
+          {
+            "name": "seclev_submit",
+            "type": "submit",
+            "value": "Submit"
+          },
+          {
+            "name": "user_token",
+            "type": "hidden",
+            "value": "1fb032cacde8e213c95eb15899a8f378"
+          }
+        ]
+      }
+    ],
+    "seen_count": 1,
+    "source_tools": [
+      "crawler"
+    ],
+    "discovered_from": [],
+    "examples": [
+      "http://192.168.0.106/DVWA/security.php"
+    ]
+  },
+  {
+    "method": "GET",
+    "url": "http://192.168.0.106/DVWA/phpinfo.php",
+    "path": "/DVWA/phpinfo.php",
+    "canonical_path": "/DVWA/phpinfo.php",
+    "response_content_type": "text/html; charset=UTF-8",
+    "statuses": [
+      200
+    ],
+    "params": [],
+    "forms": [],
+    "seen_count": 1,
+    "source_tools": [
+      "crawler"
+    ],
+    "discovered_from": [],
+    "examples": [
+      "http://192.168.0.106/DVWA/phpinfo.php"
+    ]
+  },
+  {
+    "method": "GET",
+    "url": "http://192.168.0.106/DVWA/about.php",
+    "path": "/DVWA/about.php",
+    "canonical_path": "/DVWA/about.php",
+    "response_content_type": "text/html;charset=utf-8",
+    "statuses": [
+      200
+    ],
+    "params": [],
+    "forms": [],
+    "seen_count": 1,
+    "source_tools": [
+      "crawler"
+    ],
+    "discovered_from": [],
+    "examples": [
+      "http://192.168.0.106/DVWA/about.php"
+    ]
+  },
+  {
+    "method": "GET",
+    "url": "http://192.168.0.106/DVWA/README.ar.md",
+    "path": "/DVWA/README.ar.md",
+    "canonical_path": "/DVWA/README.ar.md",
+    "response_content_type": "text/markdown",
+    "statuses": [
+      200
+    ],
+    "params": [],
+    "forms": [],
+    "seen_count": 1,
+    "source_tools": [
+      "crawler"
+    ],
+    "discovered_from": [],
+    "examples": [
+      "http://192.168.0.106/DVWA/README.ar.md"
+    ]
+  },
+  {
+    "method": "GET",
+    "url": "http://192.168.0.106/DVWA/README.zh.md",
+    "path": "/DVWA/README.zh.md",
+    "canonical_path": "/DVWA/README.zh.md",
+    "response_content_type": "text/markdown",
+    "statuses": [
+      200
+    ],
+    "params": [],
+    "forms": [],
+    "seen_count": 1,
+    "source_tools": [
+      "crawler"
+    ],
+    "discovered_from": [],
+    "examples": [
+      "http://192.168.0.106/DVWA/README.zh.md"
+    ]
+  },
+  {
+    "method": "GET",
+    "url": "http://192.168.0.106/DVWA/README.fr.md",
+    "path": "/DVWA/README.fr.md",
+    "canonical_path": "/DVWA/README.fr.md",
+    "response_content_type": "text/markdown",
+    "statuses": [
+      200
+    ],
+    "params": [],
+    "forms": [],
+    "seen_count": 1,
+    "source_tools": [
+      "crawler"
+    ],
+    "discovered_from": [],
+    "examples": [
+      "http://192.168.0.106/DVWA/README.fr.md"
+    ]
+  },
+  {
+    "method": "GET",
+    "url": "http://192.168.0.106/DVWA/README.ko.md",
+    "path": "/DVWA/README.ko.md",
+    "canonical_path": "/DVWA/README.ko.md",
+    "response_content_type": "text/markdown",
+    "statuses": [
+      200
+    ],
+    "params": [],
+    "forms": [],
+    "seen_count": 1,
+    "source_tools": [
+      "crawler"
+    ],
+    "discovered_from": [],
+    "examples": [
+      "http://192.168.0.106/DVWA/README.ko.md"
+    ]
+  },
+  {
+    "method": "GET",
+    "url": "http://192.168.0.106/DVWA/README.fa.md",
+    "path": "/DVWA/README.fa.md",
+    "canonical_path": "/DVWA/README.fa.md",
+    "response_content_type": "text/markdown",
+    "statuses": [
+      200
+    ],
+    "params": [],
+    "forms": [],
+    "seen_count": 1,
+    "source_tools": [
+      "crawler"
+    ],
+    "discovered_from": [],
+    "examples": [
+      "http://192.168.0.106/DVWA/README.fa.md"
+    ]
+  },
+  {
+    "method": "GET",
+    "url": "http://192.168.0.106/DVWA/README.pl.md",
+    "path": "/DVWA/README.pl.md",
+    "canonical_path": "/DVWA/README.pl.md",
+    "response_content_type": "text/markdown",
+    "statuses": [
+      200
+    ],
+    "params": [],
+    "forms": [],
+    "seen_count": 1,
+    "source_tools": [
+      "crawler"
+    ],
+    "discovered_from": [],
+    "examples": [
+      "http://192.168.0.106/DVWA/README.pl.md"
+    ]
+  },
+  {
+    "method": "GET",
+    "url": "http://192.168.0.106/DVWA/README.pt.md",
+    "path": "/DVWA/README.pt.md",
+    "canonical_path": "/DVWA/README.pt.md",
+    "response_content_type": "text/markdown",
+    "statuses": [
+      200
+    ],
+    "params": [],
+    "forms": [],
+    "seen_count": 1,
+    "source_tools": [
+      "crawler"
+    ],
+    "discovered_from": [],
+    "examples": [
+      "http://192.168.0.106/DVWA/README.pt.md"
+    ]
+  },
+  {
+    "method": "GET",
+    "url": "http://192.168.0.106/DVWA/README.es.md",
+    "path": "/DVWA/README.es.md",
+    "canonical_path": "/DVWA/README.es.md",
+    "response_content_type": "text/markdown",
+    "statuses": [
+      200
+    ],
+    "params": [],
+    "forms": [],
+    "seen_count": 1,
+    "source_tools": [
+      "crawler"
+    ],
+    "discovered_from": [],
+    "examples": [
+      "http://192.168.0.106/DVWA/README.es.md"
+    ]
+  },
+  {
+    "method": "GET",
+    "url": "http://192.168.0.106/DVWA/README.tr.md",
+    "path": "/DVWA/README.tr.md",
+    "canonical_path": "/DVWA/README.tr.md",
+    "response_content_type": "text/markdown",
+    "statuses": [
+      200
+    ],
+    "params": [],
+    "forms": [],
+    "seen_count": 1,
+    "source_tools": [
+      "crawler"
+    ],
+    "discovered_from": [],
+    "examples": [
+      "http://192.168.0.106/DVWA/README.tr.md"
+    ]
+  },
+  {
+    "method": "GET",
+    "url": "http://192.168.0.106/DVWA/README.id.md",
+    "path": "/DVWA/README.id.md",
+    "canonical_path": "/DVWA/README.id.md",
+    "response_content_type": "text/markdown",
+    "statuses": [
+      200
+    ],
+    "params": [],
+    "forms": [],
+    "seen_count": 1,
+    "source_tools": [
+      "crawler"
+    ],
+    "discovered_from": [],
+    "examples": [
+      "http://192.168.0.106/DVWA/README.id.md"
+    ]
+  },
+  {
+    "method": "GET",
+    "url": "http://192.168.0.106/DVWA/README.vi.md",
+    "path": "/DVWA/README.vi.md",
+    "canonical_path": "/DVWA/README.vi.md",
+    "response_content_type": "text/markdown",
+    "statuses": [
+      200
+    ],
+    "params": [],
+    "forms": [],
+    "seen_count": 1,
+    "source_tools": [
+      "crawler"
+    ],
+    "discovered_from": [],
+    "examples": [
+      "http://192.168.0.106/DVWA/README.vi.md"
+    ]
+  },
+  {
+    "method": "GET",
+    "url": "http://192.168.0.106/DVWA/README.it.md",
+    "path": "/DVWA/README.it.md",
+    "canonical_path": "/DVWA/README.it.md",
+    "response_content_type": "text/markdown",
+    "statuses": [
+      200
+    ],
+    "params": [],
+    "forms": [],
+    "seen_count": 1,
+    "source_tools": [
+      "crawler"
+    ],
+    "discovered_from": [],
+    "examples": [
+      "http://192.168.0.106/DVWA/README.it.md"
+    ]
+  },
+  {
+    "method": "GET",
+    "url": "http://192.168.0.106/DVWA/README.uk.md",
+    "path": "/DVWA/README.uk.md",
+    "canonical_path": "/DVWA/README.uk.md",
+    "response_content_type": "text/markdown",
+    "statuses": [
+      200
+    ],
+    "params": [],
+    "forms": [],
+    "seen_count": 1,
+    "source_tools": [
+      "crawler"
+    ],
+    "discovered_from": [],
+    "examples": [
+      "http://192.168.0.106/DVWA/README.uk.md"
+    ]
+  },
+  {
+    "method": "GET",
+    "url": "http://192.168.0.106/DVWA/README.ru.md",
+    "path": "/DVWA/README.ru.md",
+    "canonical_path": "/DVWA/README.ru.md",
+    "response_content_type": "text/markdown",
+    "statuses": [
+      200
+    ],
+    "params": [],
+    "forms": [],
+    "seen_count": 1,
+    "source_tools": [
+      "crawler"
+    ],
+    "discovered_from": [],
+    "examples": [
+      "http://192.168.0.106/DVWA/README.ru.md"
+    ]
+  },
+  {
+    "method": "GET",
+    "url": "http://192.168.0.106/DVWA/config/config.inc.php.dist",
+    "path": "/DVWA/config/config.inc.php.dist",
+    "canonical_path": "/DVWA/config/config.inc.php.dist",
+    "response_content_type": "application/vnd.apple.installer+xml",
+    "statuses": [
+      200
+    ],
+    "params": [],
+    "forms": [],
+    "seen_count": 1,
+    "source_tools": [
+      "crawler"
+    ],
+    "discovered_from": [],
+    "examples": [
+      "http://192.168.0.106/DVWA/config/config.inc.php.dist"
+    ]
+  },
+  {
+    "method": "GET",
+    "url": "http://192.168.0.106/DVWA/compose.yml",
+    "path": "/DVWA/compose.yml",
+    "canonical_path": "/DVWA/compose.yml",
+    "response_content_type": "application/yaml",
+    "statuses": [
+      200
+    ],
+    "params": [],
+    "forms": [],
+    "seen_count": 1,
+    "source_tools": [
+      "crawler"
+    ],
+    "discovered_from": [],
+    "examples": [
+      "http://192.168.0.106/DVWA/compose.yml"
+    ]
+  },
+  {
+    "method": "GET",
+    "url": "http://192.168.0.106/DVWA/vulnerabilities/open_redirect/source/low.php?redirect=info.php?id=2",
+    "path": "/DVWA/vulnerabilities/open_redirect/source/low.php",
+    "canonical_path": "/DVWA/vulnerabilities/open_redirect/source/low.php",
+    "response_content_type": "text/html;charset=utf-8",
+    "statuses": [
+      200
+    ],
+    "params": [
+      {
+        "name": "redirect",
+        "location": "query",
+        "type_hint": "string",
+        "sample_values": [
+          "info.php?id=1",
+          "info.php?id=2"
+        ]
+      }
+    ],
+    "forms": [],
+    "seen_count": 2,
+    "source_tools": [
+      "crawler"
+    ],
+    "discovered_from": [],
+    "examples": [
+      "http://192.168.0.106/DVWA/vulnerabilities/open_redirect/source/low.php?redirect=info.php?id=1",
+      "http://192.168.0.106/DVWA/vulnerabilities/open_redirect/source/low.php?redirect=info.php?id=2"
+    ]
+  },
+  {
+    "method": "GET",
+    "url": "http://192.168.0.106/DVWA/vulnerabilities/bac/log_viewer.php",
+    "path": "/DVWA/vulnerabilities/bac/log_viewer.php",
+    "canonical_path": "/DVWA/vulnerabilities/bac/log_viewer.php",
+    "response_content_type": "text/html; charset=UTF-8",
+    "statuses": [
+      200
+    ],
+    "params": [],
+    "forms": [],
+    "seen_count": 1,
+    "source_tools": [
+      "crawler"
+    ],
+    "discovered_from": [],
+    "examples": [
+      "http://192.168.0.106/DVWA/vulnerabilities/bac/log_viewer.php"
+    ]
+  }
+]

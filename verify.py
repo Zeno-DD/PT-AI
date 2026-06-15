@@ -1,6 +1,6 @@
 # ═══════════════════════════════════════════════════════════════
 # verify.py — Xác thực finding bằng 2 tầng: rule-based → AI
-# Đã cập nhật: Dùng TARGET_HOST, Auto-Cookie, và kẹp param Submit
+# Đã fix lỗi: Gọi cookie trong hàm thực thi thay vì global
 # ═══════════════════════════════════════════════════════════════
 
 import json
@@ -30,8 +30,6 @@ SQLI_ERROR_MARKERS = [
 
 XSS_ENCODED_FORMS = ["&lt;", "&#60;", "\\u003c", "%3C", "%3c"]
 
-DVWA_COOKIES = get_dvwa_cookies()
-
 def _rule_check_response(body: str, vuln_type: str) -> bool:
     if vuln_type == "sqli":
         return any(m in body.lower() for m in SQLI_ERROR_MARKERS)
@@ -46,11 +44,14 @@ def _rule_check_response(body: str, vuln_type: str) -> bool:
     return False
 
 def _rule_verify(finding: dict) -> tuple[bool, str]:
-    # Sử dụng TARGET_HOST để ghép URL chuẩn
+    # Sử dụng TARGET_HOST (Trick chuỗi rỗng từ config sẽ an toàn)
     url    = f"{TARGET_HOST}{finding['url']}"
     param  = finding["param"]
     method = finding.get("method", "GET")
     vuln   = finding.get("type", "sqli")
+
+    # Lấy Session DVWA tại thời điểm hàm thực sự chạy
+    dvwa_cookies = get_dvwa_cookies()
 
     payloads_to_try = finding.get("exploit_payloads", [])
     if not payloads_to_try:
@@ -68,13 +69,12 @@ def _rule_verify(finding: dict) -> tuple[bool, str]:
 
     for payload in payloads_to_try:
         try:
-            # Ép thêm tham số Submit
             request_data = {param: payload, "Submit": "Submit"}
             
             if method == "GET":
-                r = httpx.get(url, params=request_data, headers=DEFAULT_HEADERS, cookies=DVWA_COOKIES, timeout=10, follow_redirects=True)
+                r = httpx.get(url, params=request_data, headers=DEFAULT_HEADERS, cookies=dvwa_cookies, timeout=10, follow_redirects=True)
             else:
-                r = httpx.post(url, data=request_data, headers=DEFAULT_HEADERS, cookies=DVWA_COOKIES, timeout=10, follow_redirects=True)
+                r = httpx.post(url, data=request_data, headers=DEFAULT_HEADERS, cookies=dvwa_cookies, timeout=10, follow_redirects=True)
 
             if _rule_check_response(r.text, vuln):
                 logging.info(f"Rule verify CONFIRMED [{vuln}] {url} payload='{payload[:50]}'")

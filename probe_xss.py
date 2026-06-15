@@ -1,5 +1,6 @@
 # ═══════════════════════════════════════════════════════════════
 # probe_xss.py — Probe Reflected XSS (Phiên bản DVWA Tự động)
+# Đã fix lỗi: Gọi cookie trong hàm thực thi thay vì global
 # ═══════════════════════════════════════════════════════════════
 
 import logging
@@ -17,8 +18,6 @@ logging.basicConfig(
     format="%(asctime)s %(levelname)s [probe_xss] %(message)s"
 )
 
-DVWA_COOKIES = get_dvwa_cookies()
-
 ENCODED_FORMS = [
     "&lt;", "&#60;", "\\u003c", "%3C", "%3c"
 ]
@@ -28,13 +27,13 @@ DEFAULT_HEADERS = {
 }
 
 def _send(method: str, url: str, param: str,
-          payload: str, timeout: int = 10) -> tuple[str, int]:
+          payload: str, cookies: dict, timeout: int = 10) -> tuple[str, int]:
     request_data = {param: payload, "Submit": "Submit"}
     try:
         if method == "GET":
-            r = httpx.get(url, params=request_data, headers=DEFAULT_HEADERS, cookies=DVWA_COOKIES, timeout=timeout, follow_redirects=True)
+            r = httpx.get(url, params=request_data, headers=DEFAULT_HEADERS, cookies=cookies, timeout=timeout, follow_redirects=True)
         else:
-            r = httpx.post(url, data=request_data, headers=DEFAULT_HEADERS, cookies=DVWA_COOKIES, timeout=timeout, follow_redirects=True)
+            r = httpx.post(url, data=request_data, headers=DEFAULT_HEADERS, cookies=cookies, timeout=timeout, follow_redirects=True)
         return r.text, r.status_code
     except httpx.TimeoutException:
         logging.warning(f"[XSS] Timeout: {url} {param}={payload[:30]}")
@@ -65,6 +64,9 @@ def run_xss_probe(action: dict) -> list:
     param  = action["param"]
     method = action.get("method", "GET")
 
+    # Lấy Session DVWA tại thời điểm hàm thực sự chạy
+    dvwa_cookies = get_dvwa_cookies()
+
     print(f"[XSS Probe] {method} {action['url']} ?{param}")
 
     payloads = get_xss_payloads()
@@ -72,7 +74,7 @@ def run_xss_probe(action: dict) -> list:
     found    = False
 
     for payload in payloads:
-        body, status = _send(method, url, param, payload)
+        body, status = _send(method, url, param, payload, dvwa_cookies)
         reflected, snippet = _is_reflected(body, payload)
 
         if reflected:
