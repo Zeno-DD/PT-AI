@@ -1,6 +1,6 @@
 # ═══════════════════════════════════════════════════════════════
-# verify.py — Xác thực finding bằng 2 tầng: rule-based → AI
-# Đã fix lỗi: Gọi cookie trong hàm thực thi thay vì global
+# verify.py — Xác thực finding bằng kiến trúc Hybrid (Rule + AI)
+# AI đóng vai trò Giám định ngữ nghĩa chống False Positive/Negative
 # ═══════════════════════════════════════════════════════════════
 
 import json
@@ -43,14 +43,12 @@ def _rule_check_response(body: str, vuln_type: str) -> bool:
         return True
     return False
 
-def _rule_verify(finding: dict) -> tuple[bool, str]:
-    # Sử dụng TARGET_HOST (Trick chuỗi rỗng từ config sẽ an toàn)
+def _execute_request_and_rule_check(finding: dict) -> tuple[bool, str]:
+    """Thực thi request, trả về đánh giá tĩnh (Rule) và mã nguồn HTML phản hồi."""
     url    = f"{TARGET_HOST}{finding['url']}"
     param  = finding["param"]
     method = finding.get("method", "GET")
     vuln   = finding.get("type", "sqli")
-
-    # Lấy Session DVWA tại thời điểm hàm thực sự chạy
     dvwa_cookies = get_dvwa_cookies()
 
     payloads_to_try = finding.get("exploit_payloads", [])
@@ -67,6 +65,7 @@ def _rule_verify(finding: dict) -> tuple[bool, str]:
                 f"<img src=x onerror='{XSS_MARKER}'>",
             ] + payloads_to_try
 
+    last_html = ""
     for payload in payloads_to_try:
         try:
             request_data = {param: payload, "Submit": "Submit"}
@@ -75,66 +74,119 @@ def _rule_verify(finding: dict) -> tuple[bool, str]:
                 r = httpx.get(url, params=request_data, headers=DEFAULT_HEADERS, cookies=dvwa_cookies, timeout=10, follow_redirects=True)
             else:
                 r = httpx.post(url, data=request_data, headers=DEFAULT_HEADERS, cookies=dvwa_cookies, timeout=10, follow_redirects=True)
-
+            
+            last_html = r.text
             if _rule_check_response(r.text, vuln):
-                logging.info(f"Rule verify CONFIRMED [{vuln}] {url} payload='{payload[:50]}'")
-                return True, "rule_based"
+                return True, last_html
 
         except Exception as e:
-            logging.warning(f"Rule verify lỗi: {e}")
+            logging.warning(f"Lỗi gửi request trong Verify: {e}")
 
-    return False, "rule_based"
+    return False, last_html
 
-def _build_verify_prompt(finding: dict) -> str:
-    relevant_data = {
-        "type": finding.get("type"), "url": finding.get("url"),
-        "param": finding.get("param"), "payload": finding.get("payload"),
-        "evidence": finding.get("evidence", "")[:300],
-        "exploit_payloads": finding.get("exploit_payloads", [])
-    }
-    extra = "Với XSS: confirmed=true nếu payload không bị encode." if finding.get("type") == "xss" else "Với SQLi: confirmed=true nếu có error string."
-    return f"""Bạn là chuyên gia security review. Đánh giá finding sau:\n{json.dumps(relevant_data, ensure_ascii=False, indent=2)}\n{extra}\nTrả về JSON THUẦN:\n{{\n  "confirmed": true hoặc false,\n  "confidence": 0.0 đến 1.0,\n  "reason": "lý do"\n}}"""
+def _build_hybrid_prompt(finding: dict, rule_confirmed: bool, html_response: str) -> str:
+    vuln_type = finding.get("type", "sqli")
+    
+    # Trích xuất tối đa 2000 ký tự HTML để AI đọc, tránh tràn cửa sổ token
+    html_snippet = html_response[:2000] if html_response else "[Không có phản hồi từ server]"
 
-def _ai_verify(finding: dict) -> tuple[bool, str]:
+    # Định hướng AI dựa trên kết quả của hệ thống tĩnh
+    if rule_confirmed:
+        mission = f"""Hệ thống Regex tĩnh đã báo cáo CÓ lỗ hổng {vuln_type}. 
+Nhiệm vụ của bạn là đọc mã HTML và kiểm tra xem đây có phải là CẢNH BÁO GIẢ (False Positive) không.
+- Nếu thông báo lỗi chỉ là văn bản tĩnh vô hại hoặc marker XSS bị vô hiệu hóa an toàn -> Hãy trả về confirmed=false.
+- Nếu lỗ hổng thực sự tồn tại -> Trả về confirmed=true."""
+    else:
+        mission = f"""Hệ thống Regex tĩnh báo cáo KHÔNG CÓ lỗ hổng {vuln_type}.
+Nhiệm vụ của bạn là đọc HTML để kiểm tra xem có CẢNH BÁO BỊ BỎ LỌT (False Negative) do WAF chặn mập mờ hay không.
+- Nếu trang có biểu hiện bị WAF đánh chặn (captcha, thông báo 'hành vi bất thường') -> Mã khai thác đã thất bại, trả về confirmed=false.
+- Nếu bypass thực sự thành công nhưng Regex quét trượt -> Trả về confirmed=true."""
+
+    return f"""Bạn là chuyên gia Security Review cao cấp. Đánh giá độ tin cậy của finding sau.
+--- THÔNG TIN FINDING ---
+Loại: {vuln_type}
+URL: {finding.get('url')}
+Tham số: {finding.get('param')}
+Payload: {finding.get('payload')}
+
+--- NHIỆM VỤ ---
+{mission}
+
+--- HTML SERVER PHẢN HỒI (Trích xuất) ---
+{html_snippet}
+
+--- BẮT BUỘC TRẢ VỀ JSON THUẦN (Không giải thích ngoài lề) ---
+{{
+  "confirmed": true hoặc false,
+  "confidence": 0.0 đến 1.0,
+  "reason": "Lý do ngắn gọn giải thích tại sao bạn chốt kết quả này"
+}}"""
+
+def _ai_hybrid_verify(finding: dict, rule_confirmed: bool, html_response: str) -> dict:
     client = ollama.Client(host=AI_SERVER)
+    prompt = _build_hybrid_prompt(finding, rule_confirmed, html_response)
+    
     try:
         response = client.chat(
-            model=LLM_MODEL, messages=[{"role": "user", "content": _build_verify_prompt(finding)}],
+            model=LLM_MODEL, 
+            messages=[{"role": "user", "content": prompt}],
             options={"temperature": TEMP_VERIFY}
         )
+        # Bóc tách JSON an toàn khỏi text thừa
         match = re.search(r'(\{.*\})', response["message"]["content"], re.DOTALL)
         if match:
-            return bool(json.loads(match.group(1)).get("confirmed", False)), "ai"
-    except Exception: pass
-    return False, "ai"
+            result = json.loads(match.group(1))
+            return {
+                "is_confirmed": bool(result.get("confirmed", rule_confirmed)),
+                "confidence": float(result.get("confidence", 0.8 if rule_confirmed else 0.2)),
+                "ai_reason": str(result.get("reason", "AI phân tích thành công.")),
+                "verified_by": "hybrid_ai"
+            }
+    except Exception as e:
+        logging.error(f"Lỗi gọi AI Verify: {e}")
+        
+    # Cơ chế Fallback an toàn: Nếu API lỗi, tin tưởng vào phán quyết tĩnh
+    return {
+        "is_confirmed": rule_confirmed,
+        "confidence": 0.5,
+        "ai_reason": "Lỗi API AI, fallback về kết quả Rule-based.",
+        "verified_by": "rule_based_fallback"
+    }
 
 def verify_finding(finding: dict) -> dict:
     vuln = finding.get("type", "?")
     url  = finding.get("url", "?")
 
-    confirmed, verifier = _rule_verify(finding)
-    if confirmed:
-        print(f"[Verify]   ✅ CONFIRMED (rule_based)  {vuln} @ {url}")
-    else:
-        print(f"[Verify]   rule_based fail → thử AI verify...")
-        confirmed, verifier = _ai_verify(finding)
-        print(f"[Verify]   {'✅ CONFIRMED' if confirmed else '✗  NOT confirmed'} (ai)          {vuln} @ {url}")
+    print(f"\n[Verify] 🛡️ Bắn thử payload vào mục tiêu: {vuln} @ {url}")
+    
+    # Bước 1: Quét tĩnh để lấy HTML thực tế
+    rule_confirmed, html_response = _execute_request_and_rule_check(finding)
+    print(f"[Verify] ➔ Rule-based đánh giá thô: {'CÓ LỖI' if rule_confirmed else 'KHÔNG LỖI'}")
+    
+    # Bước 2: Bơm HTML cho AI để thẩm định lại ngữ nghĩa
+    print(f"[Verify] ➔ Đang giao cho AI thẩm định ngữ nghĩa (Hybrid mode)...")
+    ai_eval = _ai_hybrid_verify(finding, rule_confirmed, html_response)
+    
+    # Ghi đè đánh giá cuối cùng vào finding
+    finding.update(ai_eval)
+    
+    status_icon = "✅ CONFIRMED" if finding["is_confirmed"] else "✗ REJECTED"
+    print(f"[Verify] ➔ Kết quả chốt: {status_icon} (Tin cậy: {finding['confidence']})")
+    print(f"[Verify] ➔ Lý do AI: {finding['ai_reason']}")
 
-    finding["is_confirmed"] = confirmed
-    finding["verified_by"]  = verifier
     return finding
 
 def verify_all(findings: list) -> list:
     if not findings: return []
-    print(f"\n[Verify] Bắt đầu xác thực {len(findings)} findings (Tầng 1: Rule, Tầng 2: AI)...")
+    print(f"\n[Verify] KHỞI ĐỘNG XÁC THỰC {len(findings)} FINDINGS BẰNG KIẾN TRÚC HYBRID...")
     verified = [verify_finding(f) for f in findings]
     
     with open("verified_findings.json", "w", encoding="utf-8") as f:
         json.dump(verified, f, ensure_ascii=False, indent=2)
         
     confirmed_count = sum(1 for f in verified if f["is_confirmed"])
-    rule_count = sum(1 for f in verified if f["is_confirmed"] and f.get("verified_by") == "rule_based")
-    ai_count   = sum(1 for f in verified if f["is_confirmed"] and f.get("verified_by") == "ai")
+    rejected_count  = len(verified) - confirmed_count
 
-    print(f"\n[Verify] ✅ Kết quả: Confirmed {confirmed_count}/{len(verified)} (Rule: {rule_count}, AI: {ai_count}) → verified_findings.json")
+    print(f"\n[Verify] 🏁 TỔNG KẾT: Xác nhận thành công {confirmed_count} lỗi | Loại bỏ {rejected_count} báo động giả.")
+    print(f"[Verify] 💾 Đã kết xuất kết quả vào: verified_findings.json")
     return verified
