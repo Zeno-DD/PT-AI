@@ -1,0 +1,62 @@
+[
+  {
+    "type": "sqli",
+    "detection": "error_based",
+    "url": "/DVWA/vulnerabilities/sqli/",
+    "param": "id",
+    "method": "GET",
+    "payload": "%27",
+    "marker": "mysql",
+    "evidence": "<!DOCTYPE html>\n\n<html lang=\"en-GB\">\n\n\t<head>\n\t\t<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\n\n\t\t<title>Vulnerability: SQL Injection :: Damn Vulnerable Web Application (DVWA)</title>\n\n\t\t<link rel=\"stylesheet\" type=\"text/css\" href=\"../../dvwa/css/main.css\" />\n\n\t\t<link rel=\"icon\" type=\"\\image/ico\" href=\"../../favicon.ico\" />\n\n\t\t<script type=\"text/javascript\" src=\"../../dvwa/j",
+    "status": 200,
+    "time_based": false
+  },
+  {
+    "type": "sqli",
+    "detection": "error_based",
+    "url": "/DVWA/vulnerabilities/sqli_blind/",
+    "param": "id",
+    "method": "GET",
+    "payload": "%27",
+    "marker": "mysql",
+    "evidence": "<!DOCTYPE html>\n\n<html lang=\"en-GB\">\n\n\t<head>\n\t\t<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\n\n\t\t<title>Vulnerability: SQL Injection (Blind) :: Damn Vulnerable Web Application (DVWA)</title>\n\n\t\t<link rel=\"stylesheet\" type=\"text/css\" href=\"../../dvwa/css/main.css\" />\n\n\t\t<link rel=\"icon\" type=\"\\image/ico\" href=\"../../favicon.ico\" />\n\n\t\t<script type=\"text/javascript\" src=\"../.",
+    "status": 404,
+    "time_based": false
+  },
+  {
+    "type": "xss",
+    "detection": "reflection",
+    "url": "/DVWA/vulnerabilities/xss_r/",
+    "param": "name",
+    "method": "GET",
+    "payload": "<script>XSSCHECK7a3f9b</script>",
+    "marker": "XSSCHECK7a3f9b",
+    "evidence": "bmit\">\r\n\t\t\t</p>\n\r\n\t\t</form>\r\n\t\t<pre>Hello <script>XSSCHECK7a3f9b</script></pre>\r\n\t</div>\r\n\r\n\t<h2>More Information<",
+    "status": 200,
+    "time_based": false
+  },
+  {
+    "type": "xss",
+    "detection": "reflection",
+    "url": "/DVWA/vulnerabilities/xss_r/",
+    "param": "name",
+    "method": "GET",
+    "payload": "<ScRiPt>XSSCHECK7a3f9b</ScRiPt>",
+    "marker": "XSSCHECK7a3f9b",
+    "evidence": "bmit\">\r\n\t\t\t</p>\n\r\n\t\t</form>\r\n\t\t<pre>Hello <ScRiPt>XSSCHECK7a3f9b</ScRiPt></pre>\r\n\t</div>\r\n\r\n\t<h2>More Information<",
+    "status": 200,
+    "time_based": false
+  },
+  {
+    "type": "xss",
+    "detection": "reflection",
+    "url": "/DVWA/vulnerabilities/xss_r/",
+    "param": "name",
+    "method": "GET",
+    "payload": "<script%00>XSSCHECK7a3f9b</script%00>",
+    "marker": "XSSCHECK7a3f9b",
+    "evidence": "t\">\r\n\t\t\t</p>\n\r\n\t\t</form>\r\n\t\t<pre>Hello <script%00>XSSCHECK7a3f9b</script%00></pre>\r\n\t</div>\r\n\r\n\t<h2>More Informati",
+    "status": 200,
+    "time_based": false
+  }
+]
