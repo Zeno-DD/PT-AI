@@ -14,6 +14,7 @@ import sys
 import ollama
 from config import AI_SERVER, LLM_MODEL, EMBED_MODEL
 
+sys.stdout.reconfigure(encoding='utf-8')
 
 def check_server() -> bool:
     """

@@ -45,7 +45,7 @@ def _send_payload(finding: dict, payload: str, cookies: dict) -> tuple[str, int]
             r = httpx.get(url, params=request_data, headers=DEFAULT_HEADERS, cookies=cookies, timeout=10, follow_redirects=True)
         else:
             r = httpx.post(url, data=request_data, headers=DEFAULT_HEADERS, cookies=cookies, timeout=10, follow_redirects=True)
-        return r.text[:500], r.status_code
+        return r.text, r.status_code
     except Exception as e:
         logging.warning(f"[bypass] HTTP lỗi: {e}")
         return "", 0
